@@ -8,6 +8,8 @@ import {UserModel} from "../../models/UserModel.tsx";
 import {useFirestore} from "../../hooks/useFireStore.tsx";
 import {doc, getDoc, onSnapshot, updateDoc} from "firebase/firestore";
 import { QuestionPage } from "./QuestionPage.tsx";
+import {AnswerPage} from "./AnswerPage.tsx";
+import {SummaryPage} from "./SummaryPage.tsx";
 
 const HostPage = () => {
   const [roomId, setRoomId] = useState<string>('');
@@ -34,10 +36,27 @@ const HostPage = () => {
     }
   }, [roomId])
 
+
+  useEffect(() => {
+    if (!users) return;
+
+    const userWithQuestions = users.map(user => ({
+      ...user,
+      answers: [
+        ...user.answers,
+        {
+          question: questions[questionIndex]
+        }
+      ]
+    }));
+
+    const room = doc(db, "rooms", roomId);
+    updateDoc(room, "people", userWithQuestions)
+  }, [questionIndex]);
+
   const handleStartRetro = async () => {
     setPage(2);
 
-    console.log("here", users)
     if (!users) return;
 
     const userWithQuestions = users.map(user => ({
@@ -50,20 +69,29 @@ const HostPage = () => {
       ]
     }));
 
-    console.log("will update users", userWithQuestions)
     const room = doc(db, "rooms", roomId);
     await updateDoc(room, "people", userWithQuestions)
-    console.log("done")
+  }
+
+  const handleNextQuestion = () => {
+    if (questionIndex == questions.length - 1) {
+      return;
+    }
+
+    setQuestionIndex(prevState => prevState + 1)
+    setPage(2)
   }
 
   return <PageContext.Provider value={{page, setPage}}>
-    <div className={"container full-height"}>
+    <div className={"container full-height full-width"}>
       <div className="columns full-height">
         <div className={"column"}><LeftUserColumn users={users?.filter((_, i) => i % 2 == 0)}/></div>
         <div className={"column is-three-fifths"}>
           {page === 0 && <CreateRetroPage setRoomId={setRoomId}/>}
           {page === 1 && <QRCodePage roomId={roomId} handleStartRetro={handleStartRetro}/>}
           {page === 2 && <QuestionPage question={questions[questionIndex]}/>}
+          {page === 3 && <AnswerPage users={users} questionIndex={questionIndex} questions={questions}/> }
+          {page === 4 && <SummaryPage handleNextQuestion={handleNextQuestion} users={users} questionIndex={questionIndex} questions={questions}/>}
         </div>
         <div className={"column"}><RightUserColumn users={users?.filter((_, i) => i % 2 != 0)}/></div>
       </div>

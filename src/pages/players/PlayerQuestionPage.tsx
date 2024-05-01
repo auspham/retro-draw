@@ -47,27 +47,17 @@ type PlayerQuestionPageProp = {
   question: string
   name: string
   color: string
+  answerText: string
+  handleTextAnswer: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleDrawAnswer: (base64: string) => void
+  handleSubmitAnswer: () => void
 }
 
-export const PlayerQuestionPage: React.FC<PlayerQuestionPageProp> = ({name, question, color }) => {
+export const PlayerQuestionPage: React.FC<PlayerQuestionPageProp> = ({name, question, color,  handleDrawAnswer, handleTextAnswer, handleSubmitAnswer, answerText}) => {
   const [ step, setStep ] = useState(0);
-  const [ answerDrawing, setAnswerDrawing] = useState<string>('');
-  const [ answerText, setAnswerText ] = useState<string>('');
-
-  const handleTextAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAnswerText(event.target.value);
-  }
 
   const handleNextAnswer = () => {
     setStep(1);
-  }
-
-  const handleDrawAnswer = (base64: string) => {
-    setAnswerDrawing(base64)
-  }
-
-  const handleSubmitAnswer = () => {
-    console.log("answer", answerText, answerDrawing);
   }
 
   return <>

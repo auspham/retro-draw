@@ -22,7 +22,6 @@ export const QRCodePage: React.FC<QRCodePageProp> =({ roomId, handleStartRetro }
       <img
           src={`https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${window.location.href + "?join=" + roomId}`}
           onLoad={handleQRCodeLoad}/>
-      <div><a href={window.location.href + "?join=" + roomId} className={"bulma-is-link"} target={"_blank"}>{window.location.href + "?join=" + roomId}</a></div>
     </figure>
     <button className={"button is-fullwidth mt-5 is-info"} onClick={handleStartRetro}>Start the retro</button>
   </section>

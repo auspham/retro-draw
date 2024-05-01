@@ -5,11 +5,11 @@ import {addDoc, collection} from 'firebase/firestore';
 import {toast} from "react-toastify";
 import {usePage} from "../../hooks/usePage.tsx";
 
-type CreateGamePageProp = {
+type CreateRetroPageProp = {
   setRoomId: Dispatch<string>
 }
 
-const CreateRetroPage: React.FC<CreateGamePageProp> = ({ setRoomId }) => {
+const CreateRetroPage: React.FC<CreateRetroPageProp> = ({ setRoomId }) => {
   const [numberOfQuestion, setNumberOfQuestion] = useState(1);
   const [isDisableButtons, setIsDisableButtons] = useState(false);
   const [questions, setQuestion] = useState<string[]>([])
@@ -31,7 +31,7 @@ const CreateRetroPage: React.FC<CreateGamePageProp> = ({ setRoomId }) => {
 
 
   const submit = async (event: React.MouseEvent<HTMLElement>) => {
-    const toastId = toast.loading("I'm creating your game. Please wait...")
+    const toastId = toast.loading("I'm creating your retro. Please wait...")
     const target = event.target as HTMLElement
     target.classList.add("is-loading");
     setIsDisableButtons(true);
@@ -41,7 +41,7 @@ const CreateRetroPage: React.FC<CreateGamePageProp> = ({ setRoomId }) => {
         questions: questions
       });
       toast.update(toastId, {
-        render: "Game is created. Scan the QR code to play!",
+        render: "Retro is created. Scan the QR code to join!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
