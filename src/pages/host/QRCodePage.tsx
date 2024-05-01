@@ -1,4 +1,9 @@
 import React, {useState} from "react";
+import {useFirestore} from "../../hooks/useFireStore.tsx";
+import {doc, onSnapshot} from "firebase/firestore";
+import {UserModel} from "../../models/UserModel.tsx";
+import {UserProfile} from "../../components/UserProfile.tsx";
+import {getRandomArbitrary} from "../../utils/NumberUtils.ts";
 
 type QRCodePageProp = {
   roomId: string
@@ -6,12 +11,18 @@ type QRCodePageProp = {
 
 export const QRCodePage: React.FC<QRCodePageProp> =({ roomId }) => {
   const [qrCodeLoaded, setQrCodeLoaded] = useState(false);
+  const [users, setUser] = useState<UserModel[]>()
+  const db = useFirestore();
+
+  const ubsub = onSnapshot(doc(db, "rooms", roomId), (data) => {
+    setUser(data.get("people"));
+  })
 
   const handleQRCodeLoad = () => {
     setQrCodeLoaded(true);
   }
 
-  return <section className={"section box has-text-centered is-flex-direction-column is-align-items-center is-flex"}>
+  return <section className={"section full-height has-text-centered is-flex-direction-column is-align-items-center is-flex is-justify-content-center"}>
     <h1 className="title">{"Join the retro"}</h1>
     <h2 className="subtitle">
       Scan the QR code below to join

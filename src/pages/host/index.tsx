@@ -8,12 +8,14 @@ const HostPage = () => {
   const [page, setPage] = useState<number>(0);
 
   return <PageContext.Provider value={{page, setPage}}>
-    <div className={"container"}>
-      <div className="modal is-active">
-        <div className="modal-content">
+    <div className={"container full-height"}>
+      <div className="columns full-height">
+        <div className={"column"}>column 1</div>
+        <div className={"column is-four-fifths"}>
           {page === 0 && <CreateRetroPage setRoomId={setRoomId}/>}
           {page === 1 && <QRCodePage roomId={roomId}/>}
         </div>
+        <div className={"column"}>column 2</div>
       </div>
     </div>
   </PageContext.Provider>

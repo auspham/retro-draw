@@ -1,0 +1,11 @@
+span.prefix-holder {
+    border-bottom: 1px dashed #000;
+    display: inline-block;
+    color: blueviolet;
+    font-weight: 500;
+    line-height: 1em;
+}
+
+span.prefix-holder.min-width {
+    min-width: 100px;
+}

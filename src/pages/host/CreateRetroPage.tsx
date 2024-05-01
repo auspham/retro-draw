@@ -63,7 +63,7 @@ const CreateRetroPage: React.FC<CreateGamePageProp> = ({ setRoomId }) => {
 
   return (
       <>
-        <section className={"section box"}>
+        <section className={"section full-height is-flex is-flex-direction-column is-justify-content-center"}>
           <h1 className="title">{"Create a retro"}</h1>
               <h2 className="subtitle">
                 Fill in the questions belows.

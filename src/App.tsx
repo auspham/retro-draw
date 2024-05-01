@@ -10,7 +10,7 @@ export const App = () => {
 
   useEffect(() => {
     const params = new URL(String(document.location)).searchParams;
-    const roomId = params.get("j");
+    const roomId = params.get("join");
 
     if (!roomId) return;
 
@@ -22,5 +22,5 @@ export const App = () => {
 
   }, []);
 
-  return !roomId ? <HostPage/> : <PlayerPage/>
+  return !roomId ? <HostPage/> : <PlayerPage roomId={roomId}/>
 }
