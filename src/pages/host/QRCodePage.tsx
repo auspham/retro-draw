@@ -1,22 +1,12 @@
 import React, {useState} from "react";
-import {useFirestore} from "../../hooks/useFireStore.tsx";
-import {doc, onSnapshot} from "firebase/firestore";
-import {UserModel} from "../../models/UserModel.tsx";
-import {UserProfile} from "../../components/UserProfile.tsx";
-import {getRandomArbitrary} from "../../utils/NumberUtils.ts";
 
 type QRCodePageProp = {
   roomId: string
+  handleStartRetro: () => void
 }
 
-export const QRCodePage: React.FC<QRCodePageProp> =({ roomId }) => {
+export const QRCodePage: React.FC<QRCodePageProp> =({ roomId, handleStartRetro }) => {
   const [qrCodeLoaded, setQrCodeLoaded] = useState(false);
-  const [users, setUser] = useState<UserModel[]>()
-  const db = useFirestore();
-
-  const ubsub = onSnapshot(doc(db, "rooms", roomId), (data) => {
-    setUser(data.get("people"));
-  })
 
   const handleQRCodeLoad = () => {
     setQrCodeLoaded(true);
@@ -32,6 +22,8 @@ export const QRCodePage: React.FC<QRCodePageProp> =({ roomId }) => {
       <img
           src={`https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${window.location.href + "?join=" + roomId}`}
           onLoad={handleQRCodeLoad}/>
+      <div><a href={window.location.href + "?join=" + roomId} className={"bulma-is-link"} target={"_blank"}>{window.location.href + "?join=" + roomId}</a></div>
     </figure>
+    <button className={"button is-fullwidth mt-5 is-info"} onClick={handleStartRetro}>Start the retro</button>
   </section>
 }

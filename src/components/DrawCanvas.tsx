@@ -2,10 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import "./styles/drawCanvas.css"
 
 type DrawCanvasProp = {
-  saveImage: (base64: string) => any;
+  saveImage: (base64: string) => void;
+  color?: string;
 };
 
-export const DrawCanvas: React.FC<DrawCanvasProp> = ({ saveImage }) => {
+export const DrawCanvas: React.FC<DrawCanvasProp> = ({ saveImage, color }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
@@ -35,6 +36,7 @@ export const DrawCanvas: React.FC<DrawCanvasProp> = ({ saveImage }) => {
       context.lineTo(getX(e), getY(e));
       context.lineWidth = 10
       context.lineCap = "round"
+      context.strokeStyle = color ? color : "#000";
       context.stroke();
     }
   };
