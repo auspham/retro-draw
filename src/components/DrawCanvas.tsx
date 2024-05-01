@@ -21,9 +21,27 @@ export const DrawCanvas: React.FC<DrawCanvasProp> = ({ saveImage, color }) => {
         setContext(ctx);
       }
     }
+
+    // Prevent scrolling when touching the canvas
+    document.body.addEventListener("touchstart", function (e) {
+      if (e.target == canvas) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+    document.body.addEventListener("touchend", function (e) {
+      if (e.target == canvas) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+    document.body.addEventListener("touchmove", function (e) {
+      if (e.target == canvas) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   }, []);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
     if (context) {
       setIsDrawing(true);
       context.beginPath();
@@ -32,6 +50,7 @@ export const DrawCanvas: React.FC<DrawCanvasProp> = ({ saveImage, color }) => {
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
     if (isDrawing && context) {
       context.lineTo(getX(e), getY(e));
       context.lineWidth = 10
@@ -79,7 +98,7 @@ export const DrawCanvas: React.FC<DrawCanvasProp> = ({ saveImage, color }) => {
       <div className={"is-flex is-flex-direction-column is-align-items-center mb-6"}>
         <canvas
             width={window.innerWidth}
-            height={500}
+            height={400}
             ref={canvasRef}
             onMouseDown={startDrawing}
             onMouseMove={draw}

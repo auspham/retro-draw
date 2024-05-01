@@ -16,7 +16,7 @@ export const SetPrefixNamePage: React.FC<SetPrefixNamePageProp> = ({ handleSetPr
     setPage(2);
   }
 
-  return <div className={"p-6 container"}>
+  return <div className={"p-4 container lock-screen"}>
     <h1 className={"is-size-2 mb-5"}><span className={"has-text-weight-bold has-text-primary"}>{name}</span>, give me 1 adjective to describe last sprint.</h1>
     <h1 className={"is-size-4 mb-5"}>Last sprint i felt <span className={`prefix-holder ${prefixName.length == 0 ? "min-width" : ""}`}>{prefixName}</span></h1>
     <InputField onChange={handleSetPrefixName} label={"How did you felt last sprint?"} placeholder={"e.g productive"}/>

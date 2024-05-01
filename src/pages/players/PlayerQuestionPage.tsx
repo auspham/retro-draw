@@ -10,13 +10,13 @@ type TextAnswerProp = {
 }
 
 const TextAnswer: React.FC<TextAnswerProp> = ({ name, question, handleTextAnswer, handleNextAnswer }) => {
-  return <div className={"p-6 container"}>
-    <h1 className={"is-size-3 mb-5"}>
+  return <div className={"p-4 container lock-screen"}>
+    <h1 className={"is-size-4 mb-6"}>
       <span
           className={"has-text-weight-bold has-text-primary is-capitalized"}>{name}</span>, please answer the following question:
     </h1>
 
-    <h1 className={"is-size-3 mb-5"}>{question}</h1>
+    <h1 className={"is-size-4 mb-6"}>{question}</h1>
 
     <InputField onChange={handleTextAnswer} placeholder={"Type your answer here"} label={"Type your answer"} />
     <button className={"button is-fullwidth is-info"} onClick={handleNextAnswer}>Next</button>
@@ -32,11 +32,11 @@ type DrawAnswerProp = {
 }
 
 const DrawAnswer: React.FC<DrawAnswerProp> = ({ name, answer, saveImage, color, handleSubmitAnswer }) => {
-  return <div className={"p-6 container"}>
-    <h1 className={"is-size-3 mb-1"}>Almost done <span
+  return <div className={"p-4 container lock-screen"}>
+    <h1 className={"is-size-4 mb-1"}>Almost done <span
         className={"has-text-weight-bold has-text-primary is-capitalized"}>{name}</span>,</h1>
 
-    <h1 className={"is-size-3 mb-5"}>Now, try your best effort to draw <span
+    <h1 className={"is-size-4 mb-5"}>Now, try your best effort to draw <span
         className={"has-text-weight-bold has-text-danger is-capitalized"}>{answer}</span>.</h1>
     <DrawCanvas saveImage={saveImage} color={color}/>
     <button className="button is-fullwidth is-success" onClick={handleSubmitAnswer}>Submit answer</button>

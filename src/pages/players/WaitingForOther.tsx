@@ -2,7 +2,7 @@ type WaitingForOtherProps = {
   name: string,
 }
 export const WaitingForOther: React.FC<WaitingForOtherProps> = ({ name}) => {
-  return <div className={"p-6 container"}>
+  return <div className={"p-4 container lock-screen"}>
     <h1 className={"is-size-3 mb-5"}>All good <span
         className={"has-text-weight-bold has-text-primary is-capitalized"}>{name}</span>, we are just
       waiting for others

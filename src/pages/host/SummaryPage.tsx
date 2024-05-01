@@ -31,7 +31,7 @@ export const SummaryPage: React.FC<SummaryPageProp> = ({ users, questionIndex, q
             {user.answers.map((ans, i) => {
               if (i > questionIndex) return;
               return <div className={"column has-radius-large is-flex is-align-items-center is-justify-content-space-evenly"} style={{ color: user.color }}>
-                <img src={ans.answerImage} style={{ maxWidth: 300 }}/>
+                <img src={ans.answerImage} style={{ maxWidth: 150 }}/>
                 <p className="has-text-weight-bold is-primary">{ans.answerText}</p>
               </div>
             })}
