@@ -8,10 +8,14 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    overscroll-behavior-y: contain;
+}
+
 body {
     height: 100vh;
     box-sizing: border-box;
-    overscroll-behavior: contain;
 }
 
 #root {

@@ -20,6 +20,26 @@ export const App = () => {
       }
     })
 
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // Cancel the event
+      event.preventDefault();
+      // Chrome requires returnValue to be set
+      event.returnValue = '';
+
+      // Show a confirmation dialog
+      const confirmationMessage = 'Are you sure you want to leave this page?';
+      event.returnValue = confirmationMessage; // For legacy browsers
+
+      return confirmationMessage; // For modern browsers
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      // Cleanup: Remove the event listener when the component is unmounted
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+
   }, []);
 
   return !roomId ? <HostPage/> : <PlayerPage roomId={roomId}/>
