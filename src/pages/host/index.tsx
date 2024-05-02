@@ -84,18 +84,33 @@ const HostPage = () => {
 
   return <PageContext.Provider value={{page, setPage}}>
     <div className={"container full-height full-width"}>
-      <div className="columns full-height">
+      <div className="columns full-height" style={{height: "calc(100% - 168px)"}}>
         <div className={"column"}><LeftUserColumn users={users?.filter((_, i) => i % 2 == 0)}/></div>
         <div className={"column is-three-fifths"}>
           {page === 0 && <CreateRetroPage setRoomId={setRoomId}/>}
           {page === 1 && <QRCodePage roomId={roomId} handleStartRetro={handleStartRetro}/>}
           {page === 2 && <QuestionPage question={questions[questionIndex]}/>}
-          {page === 3 && <AnswerPage users={users} questionIndex={questionIndex} questions={questions}/> }
-          {page === 4 && <SummaryPage handleNextQuestion={handleNextQuestion} users={users} questionIndex={questionIndex} questions={questions}/>}
+          {page === 3 && <AnswerPage users={users} questionIndex={questionIndex} questions={questions}/>}
+          {page === 4 &&
+              <SummaryPage handleNextQuestion={handleNextQuestion} users={users} questionIndex={questionIndex}
+                           questions={questions}/>}
         </div>
         <div className={"column"}><RightUserColumn users={users?.filter((_, i) => i % 2 != 0)}/></div>
+
       </div>
+
+
+      <footer className="footer">
+        <div className="content has-text-centered">
+          <p>
+            Source code: <a href={"https://github.com/rockmanvnx6/retro-draw"}>https://github.com/rockmanvnx6/retro-draw</a>
+          </p>
+        </div>
+      </footer>
+
+
     </div>
+
   </PageContext.Provider>
 }
 
